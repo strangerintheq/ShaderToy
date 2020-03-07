@@ -48,10 +48,30 @@ function ShaderToy(shader, config) {
       tmp[0] = t;
       uniforms.time(tmp);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
+      return this;
   };
 
   this.resize = (w, h) => {
       uniforms.resolution([c.width = w, c.height = h]);
       gl.viewport(0, 0, w, h);
+      return this;
+  };
+    
+  this.fullscreen = () => {
+      document.body.style.margin = 0;
+      document.body.style.overflow = 'hidden';
+      addEventListener("resize", () => this.resize(innerWidth, innerHeight));
+      return this.resize(innerWidth, innerHeight);
+  };
+    
+  this.loop = fn => {
+      let draw = t => {
+         t /= 1000;
+         fn && fn(t); 
+         this.draw(t) 
+         requestAnimationFrame(draw); 
+      };
+      requestAnimationFrame(draw);
+      return this;
   };
 }
