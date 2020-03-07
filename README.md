@@ -1,5 +1,3 @@
-# ShaderToy
-
 
     new ShaderToy(`
         void main(void) {
