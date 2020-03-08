@@ -52,6 +52,8 @@ function ShaderToy(shader, config) {
   };
 
   this.resize = (w, h) => {
+      if(c.width === w && c.height === h)
+          return;
       uniforms.resolution([c.width = w, c.height = h]);
       gl.viewport(0, 0, w, h);
       return this;
